@@ -1,0 +1,32 @@
+{
+  "name": "online-shop-backend",
+  "version": "1.0.0",
+  "description": "BAD-Shop is an online shop backend application for clothes, gadgets, and cosmetics.  \r The project is built with Node.js, Express, and MongoDB and demonstrates a RESTful API with authentication, authorization, and basic e-commerce functionality.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArsikIT/online-shop-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArsikIT/online-shop-backend/issues"
+  },
+  "homepage": "https://github.com/ArsikIT/online-shop-backend#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.5",
+    "morgan": "^1.10.1",
+    "node": "^25.5.0"
+  }
+}
