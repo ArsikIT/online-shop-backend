@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
-/**
- * User Schema for Online Shop
- */
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -66,50 +62,4 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-/**
- * Hash password before saving user
- * Uses bcrypt with salt rounds of 10
- */
-userSchema.pre('save', async function () {
-  if (!this.isModified('password')) {
-    return;
-  }
-
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-  } catch (error) {
-    throw error;
-  }
-});
-
-/**
- * Compare entered password with hashed password in database
- * @param {string} enteredPassword - Password to compare
- * @returns {Promise<boolean>} - True if passwords match
- */
-userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
-
-/**
- * Generate JWT token for user
- * @returns {string} - JWT token
- */
-userSchema.methods.generateAuthToken = function () {
-  const jwt = require('jsonwebtoken');
-  
-  const payload = {
-    id: this._id,
-    email: this.email,
-    role: this.role
-  };
-
-  return jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE || '7d'
-  });
-};
-
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

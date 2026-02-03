@@ -1,79 +1,33 @@
-const User = require('../models/User');
-
-/**
- * Authentication Controller
- * Handles user registration and login
- */
+const authService = require('../services/authService');
 
 /**
  * Register a new user
  * @route POST /api/auth/register
- * @access Public
  */
 const register = async (req, res) => {
   try {
-    const { username, email, password, firstName, lastName, phone } = req.body;
-
-    // Validate required fields
-    if (!username || !email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: 'Please provide username, email, and password'
-      });
-    }
-
-    // Check if user already exists
-    const existingUser = await User.findOne({
-      $or: [{ email }, { username }]
-    });
-
-    if (existingUser) {
-      if (existingUser.email === email) {
-        return res.status(400).json({
-          success: false,
-          message: 'User with this email already exists'
-        });
-      }
-      if (existingUser.username === username) {
-        return res.status(400).json({
-          success: false,
-          message: 'Username is already taken'
-        });
-      }
-    }
-
-    // Create new user
-    const user = new User({
-      username,
-      email,
-      password,
-      firstName,
-      lastName,
-      phone
-    });
-
-    await user.save();
-    
-    const token = user.generateAuthToken();
+    const result = await authService.register(req.body);
 
     res.status(201).json({
       success: true,
       message: 'User registered successfully',
-      data: {
-        user: {
-          id: user._id,
-          username: user.username,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          role: user.role,
-          createdAt: user.createdAt
-        },
-        token
-      }
+      data: result
     });
   } catch (error) {
-    // Handle validation errors
+    if (error.message === 'USER_EMAIL_EXISTS') {
+      return res.status(400).json({
+        success: false,
+        message: 'User with this email already exists'
+      });
+    }
+    
+    if (error.message === 'USERNAME_TAKEN') {
+      return res.status(400).json({
+        success: false,
+        message: 'Username is already taken'
+      });
+    }
+
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({
@@ -94,13 +48,11 @@ const register = async (req, res) => {
 /**
  * Login user
  * @route POST /api/auth/login
- * @access Public
  */
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -108,53 +60,28 @@ const login = async (req, res) => {
       });
     }
 
-    // Find user by email
-    const user = await User.findOne({ email });
+    const result = await authService.login(email, password);
 
-    if (!user) {
+    res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      data: result
+    });
+  } catch (error) {
+    if (error.message === 'INVALID_CREDENTIALS') {
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
       });
     }
 
-    // Check if account is active
-    if (!user.isActive) {
+    if (error.message === 'ACCOUNT_DEACTIVATED') {
       return res.status(401).json({
         success: false,
         message: 'Your account has been deactivated. Please contact support.'
       });
     }
 
-    // Compare passwords
-    const isPasswordValid = await user.comparePassword(password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid email or password'
-      });
-    }
-
-    // Generate JWT token
-    const token = user.generateAuthToken();
-
-    res.status(200).json({
-      success: true,
-      message: 'Login successful',
-      data: {
-        user: {
-          id: user._id,
-          username: user.username,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          role: user.role
-        },
-        token
-      }
-    });
-  } catch (error) {
     res.status(500).json({
       success: false,
       message: 'Server error during login',
@@ -163,7 +90,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = {
-  register,
-  login
-};
+module.exports = { register, login };

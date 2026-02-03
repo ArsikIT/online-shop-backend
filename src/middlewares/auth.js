@@ -1,16 +1,10 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const tokenService = require('../services/tokenService');
+const authService = require('../services/authService');
 
-/**
- * Middleware to verify JWT token and authenticate user
- * Protects private endpoints by checking for valid JWT
- */
 const authMiddleware = async (req, res, next) => {
   try {
-    // Get token from header
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
-    // Check if token exists
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -18,20 +12,9 @@ const authMiddleware = async (req, res, next) => {
       });
     }
 
-    // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = tokenService.verifyToken(token);
+    const user = await authService.getUserById(decoded.id);
 
-    // Find user by id from token
-    const user = await User.findById(decoded.id).select('-password');
-
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid token. User not found.'
-      });
-    }
-
-    // Attach user to request object
     req.user = user;
     next();
   } catch (error) {
