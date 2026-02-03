@@ -19,37 +19,17 @@ exports.getCart = async (req, res, next) => {
 
 exports.addToCart = async (req, res, next) => {
   try {
-    const { productId, quantity } = req.body;
-
-    const product = await Product.findById(productId);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
+    const { productId, quantity, attributes } = req.body;
     let cart = await Cart.findOne({ user: req.user.id });
 
     if (!cart) {
-      cart = await Cart.create({
-        user: req.user.id,
-        items: [],
-      });
+      cart = new Cart({ user: req.user.id, items: [] });
     }
 
-    const itemIndex = cart.items.findIndex(
-      (item) => item.product.toString() === productId
-    );
-
-    if (itemIndex > -1) {
-      cart.items[itemIndex].quantity += quantity;
-    } else {
-      cart.items.push({ product: productId, quantity });
-    }
-
-    await cart.save();
+    await cart.addItem(productId, quantity, null, attributes);
+    
     res.status(201).json(cart);
-  } catch (error) {
-    next(error);
-  }
+  } catch (error) { next(error); }
 };
 
 exports.updateCartItem = async (req, res, next) => {

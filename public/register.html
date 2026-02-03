@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Register — BAAD-Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <main class="container" style="max-width:420px;margin-top:40px">
+        <h2>Register</h2>
+        <form id="reg-form" onsubmit="return false;">
+            <label>Name <input id="name" class="input" required></label>
+            <label>Email <input id="email" class="input" type="email" required></label>
+            <label>Password <input id="password" class="input" type="password" required></label>
+            <button id="reg-btn" class="btn">Register</button>
+        </form>
+        <p class="small" style="margin-top:12px">Already have an account? <a href="login.html">Log in</a></p>
+    </main>
+
+    <script type="module">
+        import { initAuth } from './js/auth.js';
+        initAuth();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin Panel — BAAD-Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="brand">BAAD-Shop</a>
+        <nav class="nav"><a href="index.html">Back to Catalog</a></nav>
+    </header>
+
+    <main class="container" style="max-width: 700px;">
+        <h2>Create New Product</h2>
+        <form id="product-form" onsubmit="return false;">
+            <label>Title</label>
+            <input id="title" class="input" required>
+
+            <label>Description</label>
+            <textarea id="desc" class="input" rows="4"></textarea>
+
+            <label>Price (KZT)</label>
+            <input id="price" class="input" type="number" required>
+
+            <label>Category</label>
+            <input id="category" class="input">
+
+            <button id="create" class="btn">Create Product</button>
+        </form>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
+
+        <h3>Product Inventory</h3>
+        <div id="list">Loading...</div>
+    </main>
+
+    <script type="module">
+        import { initAdmin } from './js/admin.js';
+        initAdmin();
+    </script>
+</body>
+
+</html>

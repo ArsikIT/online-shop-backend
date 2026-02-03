@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BAAD-Shop — Cart</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="brand">BAAD-Shop</div>
+        <nav class="nav"><a href="index.html">Catalog</a></nav>
+    </header>
+
+    <main class="container">
+        <h1>Cart</h1>
+        <div id="empty" class="small">Loading...</div>
+        <div id="cart-area" style="display:none">
+            <table class="table" id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Sum</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="subtotal" class="small" style="margin-top:12px;text-align:right;font-weight:700">Total: 0 KZT</div>
+            <button class="btn" id="checkout-btn" style="float:right;margin-top:12px">Checkout</button>
+            <div style="clear:both"></div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initCart } from './js/cart.js';
+        initCart();
+    </script>
+
+</body>
+
+</html>

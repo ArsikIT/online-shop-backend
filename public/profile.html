@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Profile — BAAD-Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="brand">BAAD-Shop</div>
+    </header>
+    <main class="container">
+        <section>
+            <h2>Profile</h2>
+            <div id="user-info"></div>
+            <button id="logout" class="btn" style="margin-top:8px">Log out</button>
+        </section>
+        <section style="margin-top:18px">
+            <h3>Order history</h3>
+            <div id="orders">—</div>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initProfile } from './js/profile.js';
+        initProfile();
+    </script>
+
+</body>
+
+</html>

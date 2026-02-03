@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Checkout — BAAD-Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="brand">BAAD-Shop</a>
+        <nav class="nav"><a href="cart.html">Back to Cart</a></nav>
+    </header>
+
+    <main class="container" style="max-width: 600px;">
+        <h1>Shipping Information</h1>
+        <form id="checkout-form" onsubmit="return false;">
+            <input id="fullName" class="input" placeholder="Full Name" required>
+            <input id="street" class="input" placeholder="Street Address" required>
+
+            <div style="display:flex; gap:12px">
+                <input id="city" class="input" placeholder="City" required>
+                <input id="postalCode" class="input" placeholder="Zip">
+            </div>
+
+            <input id="country" class="input" placeholder="Country" required>
+
+            <h3>Payment Method</h3>
+            <div style="display:flex; gap:20px; margin-bottom: 20px;">
+                <label><input type="radio" name="pay" value="card" checked> Card</label>
+                <label><input type="radio" name="pay" value="cash"> Cash</label>
+            </div>
+
+            <button id="place-order" class="btn" style="width: 100%;">Place Order</button>
+        </form>
+
+        <div id="result" class="center"></div>
+    </main>
+
+    <script type="module">
+        import { initCheckout } from './js/checkout.js';
+        initCheckout();
+    </script>
+
+</body>
+
+</html>

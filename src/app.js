@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path')
 const cors = require('cors');
 const morgan = require('morgan');
 
@@ -11,6 +12,7 @@ const app = express();
 // Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // CORS
 const allowedOrigins = process.env.ALLOWED_ORIGINS 
