@@ -25,20 +25,17 @@ exports.getProductById = async (req, res, next) => {
 
 exports.createProduct = async (req, res, next) => {
   try {
-    const { name, category, price, description, imageUrl } = req.body;
-
+    const { title, description, price, images, categoryId, stock } = req.body;
     const product = await Product.create({
-      name,
-      category,
-      price,
+      title,
       description,
-      imageUrl,
+      price,
+      images,
+      categoryId,
+      stock
     });
-
     res.status(201).json(product);
-  } catch (error) {
-    next(error);
-  }
+  } catch (error) { next(error); }
 };
 
 exports.deleteProduct = async (req, res, next) => {

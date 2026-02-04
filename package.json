@@ -1,7 +1,7 @@
 {
   "name": "online-shop-backend",
   "version": "1.0.0",
-  "description": "BAD-Shop is an online shop backend application for clothes, gadgets, and cosmetics.  \r The project is built with Node.js, Express, and MongoDB and demonstrates a RESTful API with authentication, authorization, and basic e-commerce functionality.",
+  "description": "BAAD-Shop is an online shop backend application for clothes, gadgets, and cosmetics.  \r The project is built with Node.js, Express, and MongoDB and demonstrates a RESTful API with authentication, authorization, and basic e-commerce functionality.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

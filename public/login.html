@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login — BAAD-Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <main class="container" style="max-width:420px;margin-top:40px">
+        <h2>Login</h2>
+        <form id="login-form" onsubmit="return false;">
+            <label>Email <input id="email" class="input" type="email" required></label>
+            <label>Password <input id="password" class="input" type="password" required></label>
+            <button id="login-btn" class="btn">Log in</button>
+        </form>
+        <p class="small" style="margin-top:12px">No account? <a href="register.html">Register</a></p>
+    </main>
+
+    <script type="module">
+        import { initAuth } from './js/auth.js';
+        initAuth();
+    </script>
+
+</body>
+
+</html>

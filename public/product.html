@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BAAD-Shop — Product</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="brand">BAAD-Shop</div>
+        <nav class="nav"><a href="index.html">Catalog</a> • <a href="cart.html">Cart</a></nav>
+    </header>
+
+    <main class="container">
+        <div class="product-grid" id="product">
+            <div><img id="p-img" src="" alt="product"></div>
+            <div>
+                <h1 id="p-title">Product title</h1>
+                <div class="price" id="p-price">0 KZT</div>
+                <p id="p-desc">Description</p>
+                <label>Quantity:
+                    <input id="qty" type="number" value="1" min="1" class="input" style="width:90px;margin-left:8px">
+                </label>
+                <button id="add-btn" class="btn" style="margin-top:12px">Add to cart</button>
+                <div class="small" style="margin-top:8px">Category: <span id="p-cat"></span></div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initProduct } from './js/product.js';
+        initProduct();
+    </script>
+
+</body>
+
+</html>
