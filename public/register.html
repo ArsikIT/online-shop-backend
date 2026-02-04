@@ -1,30 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Register — BAAD-Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BAAD-Shop</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <main class="container" style="max-width:420px;margin-top:40px">
-        <h2>Register</h2>
-        <form id="reg-form" onsubmit="return false;">
-            <label>Name <input id="name" class="input" required></label>
-            <label>Email <input id="email" class="input" type="email" required></label>
-            <label>Password <input id="password" class="input" type="password" required></label>
-            <button id="reg-btn" class="btn">Register</button>
-        </form>
-        <p class="small" style="margin-top:12px">Already have an account? <a href="login.html">Log in</a></p>
-    </main>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Join BAAD-Shop</h2>
+            <p class="text-center text-muted mb-3">Create your account and start shopping</p>
+
+            <form id="register-form">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="John Doe" required minlength="3">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Minimum 6 characters" required
+                        minlength="6">
+                    <small class="text-muted">Must be at least 6 characters</small>
+                </div>
+
+                <button type="submit" id="reg-btn" class="btn btn-primary" style="width: 100%;">
+                    <span id="btn-text">Create Account</span>
+                    <span id="btn-loading" style="display: none;">
+                        <div class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
+                    </span>
+                </button>
+            </form>
+
+            <p class="text-center mt-3">
+                Already have an account?
+                <a href="login.html" style="color: var(--primary); font-weight: 600;">Login</a>
+            </p>
+
+            <p class="text-center mt-2">
+                <a href="index.html" style="color: var(--text-muted); font-size: 0.9rem;">← Back to shop</a>
+            </p>
+        </div>
+    </div>
 
     <script type="module">
         import { initAuth } from './js/auth.js';
         initAuth();
-    </script>
 
+        // Add loading state
+        const form = document.getElementById('register-form');
+        const btn = document.getElementById('reg-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnLoading = document.getElementById('btn-loading');
+
+        form.addEventListener('submit', (e) => {
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'block';
+
+            setTimeout(() => {
+                if (btn.disabled) {
+                    btn.disabled = false;
+                    btnText.style.display = 'block';
+                    btnLoading.style.display = 'none';
+                }
+            }, 5000);
+        });
+    </script>
 </body>
 
 </html>

@@ -62,4 +62,14 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+/**
+ * Instance method to compare password
+ * @param {string} candidatePassword - Password to compare
+ * @returns {Promise<boolean>} - True if passwords match
+ */
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  const passwordService = require('../services/passwordService');
+  return await passwordService.comparePassword(candidatePassword, this.password);
+};
+
 module.exports = mongoose.model('User', userSchema);

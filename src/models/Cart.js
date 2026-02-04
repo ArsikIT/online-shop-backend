@@ -25,7 +25,7 @@ cartSchema.methods.addItem = async function (productId, qty = 1, priceAtAdd = nu
         if (!prod) throw new Error('Product not found');
         priceAtAdd = prod.price;
     }
-    
+
     const existing = this.items.find(it =>
         it.product.toString() === productId.toString() &&
         JSON.stringify(it.attributes || {}) === JSON.stringify(attributes || {})
@@ -56,7 +56,6 @@ cartSchema.methods.removeItem = function (productId, qty = null, attributes = {}
     } else {
         this.items[idx].quantity -= qty;
     }
-    this.updatedAt = new Date();
     return this.save();
 };
 

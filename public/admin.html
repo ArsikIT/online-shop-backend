@@ -1,46 +1,119 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Admin Panel — BAAD-Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - BAAD-Shop</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <a href="index.html" class="brand">BAAD-Shop</a>
-        <nav class="nav"><a href="index.html">Back to Catalog</a></nav>
+        <div class="container">
+            <a href="index.html" class="brand">BAAD-Shop Admin</a>
+            <nav class="nav">
+                <a href="index.html">Catalog</a>
+                <a href="profile.html">Profile</a>
+                <a href="admin.html" style="color: var(--primary); font-weight: 600;">Admin</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="container" style="max-width: 700px;">
-        <h2>Create New Product</h2>
-        <form id="product-form" onsubmit="return false;">
-            <label>Title</label>
-            <input id="title" class="input" required>
+    <main class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>Product Management</h1>
+            <button class="btn btn-primary" onclick="showAddProductModal()">+ Add Product</button>
+        </div>
 
-            <label>Description</label>
-            <textarea id="desc" class="input" rows="4"></textarea>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p class="mt-2 text-muted">Loading products...</p>
+        </div>
 
-            <label>Price (KZT)</label>
-            <input id="price" class="input" type="number" required>
-
-            <label>Category</label>
-            <input id="category" class="input">
-
-            <button id="create" class="btn">Create Product</button>
-        </form>
-
-        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
-
-        <h3>Product Inventory</h3>
-        <div id="list">Loading...</div>
+        <div id="products-table" style="display: none;">
+            <div class="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-list"></tbody>
+                </table>
+            </div>
+        </div>
     </main>
 
-    <script type="module">
-        import { initAdmin } from './js/admin.js';
-        initAdmin();
-    </script>
+    <!-- Add/Edit Product Modal -->
+    <div id="product-modal"
+        style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
+        <div
+            style="background: white; border-radius: var(--radius-lg); padding: 2rem; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto;">
+            <h3 id="modal-title">Add New Product</h3>
+
+            <form id="product-form">
+                <div class="form-group">
+                    <label class="form-label">Title *</label>
+                    <input type="text" id="product-title" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="product-description" class="form-textarea"></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Price (KZT) *</label>
+                        <input type="number" id="product-price" class="form-input" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Stock *</label>
+                        <input type="number" id="product-stock" class="form-input" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Category ID (optional)</label>
+                    <input type="text" id="product-category" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Image URLs (one per line, optional)</label>
+                    <textarea id="product-images" class="form-textarea"
+                        placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
+                        rows="4"></textarea>
+                    <small class="text-muted">Enter image URLs, one per line. First image will be the main product
+                        image.</small>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <span id="submit-text">Save Product</span>
+                        <span id="submit-loading" style="display: none;">
+                            <div class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
+                        </span>
+                    </button>
+                    <button type="button" class="btn btn-ghost" onclick="hideProductModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 BAAD-Shop. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="js/baadshop.js"></script>
+    <script type="module" src="js/admin.js"></script>
 </body>
 
 </html>

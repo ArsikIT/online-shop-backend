@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const productController = require("../controllers/product.controller");
-const authMiddleware = require("../middlewares/auth.middleware");
+const authMiddleware = require("../middlewares/auth");
 const roleMiddleware = require("../middlewares/role.middleware");
 
 // public
@@ -15,6 +15,13 @@ router.post(
   authMiddleware,
   roleMiddleware("admin"),
   productController.createProduct
+);
+
+router.put(
+  "/:id",
+  authMiddleware,
+  roleMiddleware("admin"),
+  productController.updateProduct
 );
 
 router.delete(

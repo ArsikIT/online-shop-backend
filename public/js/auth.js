@@ -2,7 +2,7 @@
 import { saveAuthUser } from './baadshop.js';
 
 const STORAGE_KEY = 'badshop_user';
-export const API_BASE = window.API_BASE || ''; // keep window.API_BASE for runtime injection
+export const API_BASE = window.API_BASE || '/api'; // keep window.API_BASE for runtime injection
 
 async function apiPost(path, body) {
   const res = await fetch((API_BASE || '') + path, {

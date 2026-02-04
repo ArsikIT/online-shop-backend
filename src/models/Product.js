@@ -35,11 +35,13 @@ function makeSlug(text) {
 }
 
 // If slug missing, create from title
-productSchema.pre('validate', function (next) {
+// If slug missing, create from title
+productSchema.pre('validate', async function () {
     if (!this.slug && this.title) {
-        this.slug = makeSlug(this.title);
+        // Add timestamp to ensure uniqueness
+        const timestamp = Date.now().toString(36);
+        this.slug = makeSlug(this.title) + '-' + timestamp;
     }
-    next();
 });
 
 // Virtual for availability
