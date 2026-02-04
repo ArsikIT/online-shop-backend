@@ -1,17 +1,18 @@
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
+const Product = require("../models/Product");
 
 exports.createOrder = async (req, res, next) => {
   try {
     const { shippingAddress, paymentInfo } = req.body;
-    const cart = await Cart.findOne({ user: req.user.id });
+    const cart = await Cart.findOne({ user: req.user._id });
 
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: "Cart is empty" });
     }
 
     const order = await Order.createFromCart({
-      userId: req.user.id,
+      userId: req.user._id,
       cart,
       shippingAddress,
       paymentInfo
@@ -31,7 +32,7 @@ exports.createOrder = async (req, res, next) => {
 
 exports.getMyOrders = async (req, res, next) => {
   try {
-    const orders = await Order.find({ user: req.user.id }).populate(
+    const orders = await Order.find({ user: req.user._id }).populate(
       "items.product"
     );
 

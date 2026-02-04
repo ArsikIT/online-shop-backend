@@ -1,46 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>BAAD-Shop — Cart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - BAAD-Shop</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <div class="brand">BAAD-Shop</div>
-        <nav class="nav"><a href="index.html">Catalog</a></nav>
+        <div class="container">
+            <a href="index.html" class="brand">BAAD-Shop</a>
+            <nav class="nav">
+                <a href="index.html">Catalog</a>
+                <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+                <a href="profile.html">Profile</a>
+                <a href="admin.html" id="admin-link" style="display: none;">Admin</a>
+            </nav>
+        </div>
     </header>
 
     <main class="container">
-        <h1>Cart</h1>
-        <div id="empty" class="small">Loading...</div>
-        <div id="cart-area" style="display:none">
-            <table class="table" id="cart-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>Sum</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            <div id="subtotal" class="small" style="margin-top:12px;text-align:right;font-weight:700">Total: 0 KZT</div>
-            <button class="btn" id="checkout-btn" style="float:right;margin-top:12px">Checkout</button>
-            <div style="clear:both"></div>
+        <h1>Shopping Cart</h1>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p class="mt-2 text-muted">Loading cart...</p>
+        </div>
+
+        <div id="empty-cart" class="text-center" style="display: none; padding: 3rem;">
+            <h2>Your cart is empty</h2>
+            <p class="text-muted mt-2">Add some products to get started!</p>
+            <a href="index.html" class="btn btn-primary mt-3">Continue Shopping</a>
+        </div>
+
+        <div id="cart-content" style="display: none;">
+            <div class="table" style="margin-bottom: 2rem; overflow-x: auto;">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items"></tbody>
+                </table>
+            </div>
+
+            <div
+                style="max-width: 400px; margin-left: auto; background: var(--bg-primary); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h3>Order Summary</h3>
+                <div
+                    style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                    <span>Subtotal:</span>
+                    <strong id="cart-total">0 KZT</strong>
+                </div>
+                <button class="btn btn-primary mt-3" style="width: 100%;" onclick="checkout()">
+                    Proceed to Checkout
+                </button>
+            </div>
         </div>
     </main>
 
-    <script type="module">
-        import { initCart } from './js/cart.js';
-        initCart();
-    </script>
+    <footer class="footer">
+        <p>&copy; 2026 BAAD-Shop. All rights reserved.</p>
+    </footer>
 
+    <script type="module" src="js/baadshop.js"></script>
+    <script type="module" src="js/cart.js"></script>
 </body>
 
 </html>

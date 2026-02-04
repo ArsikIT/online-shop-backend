@@ -1,31 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Catalog — BAAD-Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAAD-Shop - Premium Online Shopping</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
-        <a href="index.html" class="brand">BAAD-Shop</a>
-        <nav class="nav">
-            <a href="index.html">Catalog</a>
-            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
-            <a href="profile.html">Profile</a>
-            <a href="admin.html">Admin</a>
-        </nav>
+        <div class="container">
+            <a href="index.html" class="brand">BAAD-Shop</a>
+            <nav class="nav">
+                <a href="index.html">Catalog</a>
+                <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+                <a href="profile.html" id="profile-link">Profile</a>
+                <a href="admin.html" id="admin-link" style="display: none;">Admin</a>
+                <a href="login.html" id="login-link">Login</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="container">
-        <h1>Featured Products</h1>
-        <div class="grid" id="product-grid">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to BAAD-Shop</h1>
+            <p>Discover premium products at unbeatable prices. Shop the latest trends in fashion, gadgets, and
+                cosmetics.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">Shop Now</a>
+                <a href="register.html" class="btn btn-secondary">Sign Up</a>
             </div>
+        </div>
+    </section>
+
+    <main class="container" id="products">
+        <h2 class="text-center">Featured Products</h2>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p class="mt-2 text-muted">Loading products...</p>
+        </div>
+
+        <div id="empty-state" class="text-center" style="display: none; padding: 3rem;">
+            <h3>No Products Available</h3>
+            <p class="text-muted">Check back later for new arrivals!</p>
+        </div>
+
+        <div class="grid" id="product-grid"></div>
     </main>
 
-    <footer class="footer">© BAAD-Shop</footer>
+    <footer class="footer">
+        <p>&copy; 2026 BAAD-Shop. All rights reserved.</p>
+        <p class="mt-1 text-muted">Premium online shopping experience</p>
+    </footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/catalog.js"></script>
+    <script type="module" src="js/baadshop.js"></script>
+    <script type="module" src="js/catalog.js"></script>
+    <script type="module">
+        import { getAuthUser } from './js/baadshop.js';
+
+        // Update nav based on auth status
+        const user = getAuthUser();
+        const profileLink = document.getElementById('profile-link');
+        const adminLink = document.getElementById('admin-link');
+        const loginLink = document.getElementById('login-link');
+
+        if (user && user.token) {
+            loginLink.style.display = 'none';
+            // Show admin link only for admin users
+            if (user.user?.role === 'admin') {
+                adminLink.style.display = 'inline';
+            }
+        } else {
+            profileLink.style.display = 'none';
+        }
+    </script>
 </body>
+
 </html>

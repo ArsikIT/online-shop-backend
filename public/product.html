@@ -1,40 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>BAAD-Shop — Product</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - BAAD-Shop</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <div class="brand">BAAD-Shop</div>
-        <nav class="nav"><a href="index.html">Catalog</a> • <a href="cart.html">Cart</a></nav>
+        <div class="container">
+            <a href="index.html" class="brand">BAAD-Shop</a>
+            <nav class="nav">
+                <a href="index.html">Catalog</a>
+                <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+                <a href="profile.html">Profile</a>
+                <a href="admin.html" id="admin-link" style="display: none;">Admin</a>
+            </nav>
+        </div>
     </header>
 
     <main class="container">
-        <div class="product-grid" id="product">
-            <div><img id="p-img" src="" alt="product"></div>
-            <div>
-                <h1 id="p-title">Product title</h1>
-                <div class="price" id="p-price">0 KZT</div>
-                <p id="p-desc">Description</p>
-                <label>Quantity:
-                    <input id="qty" type="number" value="1" min="1" class="input" style="width:90px;margin-left:8px">
-                </label>
-                <button id="add-btn" class="btn" style="margin-top:12px">Add to cart</button>
-                <div class="small" style="margin-top:8px">Category: <span id="p-cat"></span></div>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p class="mt-2 text-muted">Loading product...</p>
+        </div>
+
+        <div id="product-details" style="display: none;">
+            <a href="index.html" class="text-muted"
+                style="text-decoration: none; display: inline-block; margin-bottom: 2rem;">← Back to catalog</a>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                <!-- Product Image -->
+                <div>
+                    <img id="product-image" src="" alt=""
+                        style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+                </div>
+
+                <!-- Product Info -->
+                <div>
+                    <h1 id="product-title"></h1>
+                    <div id="product-stock" class="mt-2"></div>
+
+                    <div class="price mt-3" style="font-size: 2.5rem;" id="product-price"></div>
+
+                    <p id="product-description" class="mt-3 text-secondary" style="line-height: 1.8;"></p>
+
+                    <div class="mt-3"
+                        style="padding: 1.5rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                        <label class="form-label">Quantity</label>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <button class="btn-icon btn-ghost" onclick="changeQuantity(-1)">−</button>
+                            <input type="number" id="quantity" value="1" min="1"
+                                style="width: 80px; text-align: center; padding: 0.5rem; border: 2px solid var(--border); border-radius: var(--radius-md); font-weight: 600;">
+                            <button class="btn-icon btn-ghost" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+
+                    <button id="add-to-cart-btn" class="btn btn-primary mt-3" style="width: 100%; padding: 1rem;"
+                        onclick="addToCart()">
+                        Add to Cart
+                    </button>
+                </div>
             </div>
         </div>
     </main>
 
-    <script type="module">
-        import { initProduct } from './js/product.js';
-        initProduct();
-    </script>
+    <footer class="footer">
+        <p>&copy; 2026 BAAD-Shop. All rights reserved.</p>
+    </footer>
 
+    <script type="module" src="js/baadshop.js"></script>
+    <script type="module" src="js/product.js"></script>
 </body>
 
 </html>

@@ -1,34 +1,87 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Profile — BAAD-Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - BAAD-Shop</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <div class="brand">BAAD-Shop</div>
+        <div class="container">
+            <a href="index.html" class="brand">BAAD-Shop</a>
+            <nav class="nav">
+                <a href="index.html">Catalog</a>
+                <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+                <a href="profile.html">Profile</a>
+                <a href="admin.html" id="admin-link" style="display: none;">Admin</a>
+            </nav>
+        </div>
     </header>
+
     <main class="container">
-        <section>
-            <h2>Profile</h2>
-            <div id="user-info"></div>
-            <button id="logout" class="btn" style="margin-top:8px">Log out</button>
-        </section>
-        <section style="margin-top:18px">
-            <h3>Order history</h3>
-            <div id="orders">—</div>
-        </section>
+        <h1>My Profile</h1>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p class="mt-2 text-muted">Loading profile...</p>
+        </div>
+
+        <div id="profile-content" style="display: none;">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <!-- User Info Card -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Personal Information</h3>
+                        <div style="margin-top: 1.5rem;">
+                            <div style="margin-bottom: 1rem;">
+                                <label class="text-muted" style="font-size: 0.85rem;">Username</label>
+                                <p id="user-username" style="font-weight: 600;"></p>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label class="text-muted" style="font-size: 0.85rem;">Email</label>
+                                <p id="user-email" style="font-weight: 600;"></p>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label class="text-muted" style="font-size: 0.85rem;">Role</label>
+                                <p id="user-role">
+                                    <span class="badge badge-success">User</span>
+                                </p>
+                            </div>
+                            <div>
+                                <label class="text-muted" style="font-size: 0.85rem;">Member Since</label>
+                                <p id="user-joined" style="font-weight: 600;"></p>
+                            </div>
+                        </div>
+                        <button class="btn btn-ghost mt-3" style="width: 100%;" onclick="logout()">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order History Card -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Order History</h3>
+                        <div id="orders-list" style="margin-top: 1.5rem;">
+                            <p class="text-muted">Loading orders...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <script type="module">
-        import { initProfile } from './js/profile.js';
-        initProfile();
-    </script>
+    <footer class="footer">
+        <p>&copy; 2026 BAAD-Shop. All rights reserved.</p>
+    </footer>
 
+    <script type="module" src="js/baadshop.js"></script>
+    <script type="module" src="js/profile.js"></script>
 </body>
 
 </html>
