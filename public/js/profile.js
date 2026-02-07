@@ -83,7 +83,7 @@ async function fetchOrders() {
   const ordersList = document.getElementById('orders-list');
 
   try {
-    const response = await fetch(`${API_BASE}/orders`, {
+    const response = await fetch(`${API_BASE}/orders/my`, {
       headers: {
         'Authorization': `Bearer ${user.token}`
       }
