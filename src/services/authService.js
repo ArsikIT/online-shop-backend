@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const passwordService = require('./passwordService');
 const tokenService = require('./tokenService');
-const { sendWelcomeEmail } = require('./email.service');
+const { sendWelcomeEmail } = require('./emailService');
 
 
 class AuthService {
