@@ -1,8 +1,6 @@
 const User = require('../models/User');
 const passwordService = require('./passwordService');
 const tokenService = require('./tokenService');
-const { sendWelcomeEmail } = require('./email.service');
-
 
 class AuthService {
   /**
@@ -41,13 +39,6 @@ class AuthService {
     });
 
     await user.save();
-    // Send welcome email (non-blocking)
-try {
-  await sendWelcomeEmail(user.email, user.username);
-} catch (err) {
-  console.error('Email error:', err.message);
-}
-
 
     // Generate token
     const token = tokenService.generateAccessToken({
